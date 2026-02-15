@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
 
 function Navbar() {
   const [cut, setCut] = useState(false);
@@ -7,54 +6,11 @@ function Navbar() {
   return (
     <nav
       className="fixed top-0 left-0 w-full z-50
-      flex items-center justify-between
+      flex items-center justify-end
       px-8 py-4
       bg-[#0f0f0f]/70 backdrop-blur-md
       border-b border-white/10"
     >
-      {/* CENTER HANGING BOARD */}
-      <div className="relative flex flex-col items-center -mt-6">
-
-        {/* Rope */}
-        {!cut && (
-          <div
-            onMouseEnter={() => setCut(true)}
-            className="w-[3px] h-10 bg-gray-400 cursor-crosshair"
-          />
-        )}
-
-        {/* Board */}
-        <motion.div
-          animate={
-            cut
-              ? {
-                  y: 120,
-                  rotate: 360,
-                }
-              : {
-                  rotate: [-4, 4, -4],
-                }
-          }
-transition={
-  cut
-    ? {
-        duration: 2,
-        ease: "easeIn",   // gravity feel
-      }
-    : {
-        repeat: Infinity,
-        duration: 2,
-        ease: "easeInOut",
-      }
-}
-
-          className="px-6 py-2 bg-[#007CED] text-white 
-          font-bold text-lg rounded-lg shadow-xl"
-          style={{ transformOrigin: "top center" }}
-        >
-          kapil.dev
-        </motion.div>
-      </div>
 
       {/* RIGHT LINKS */}
       <div className="flex gap-4 text-white">
@@ -80,6 +36,7 @@ transition={
           Contact
         </a>
       </div>
+
     </nav>
   );
 }

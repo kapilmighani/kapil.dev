@@ -1,7 +1,21 @@
 import { motion } from "framer-motion";
+import { useRef } from "react";
 import projectImage from "../assets/IMG_20260210_103205~3.jpg";
 
 function Projects() {
+  const scrollRef = useRef(null);
+
+  const scroll = (direction) => {
+    const container = scrollRef.current;
+    const scrollAmount = 420;
+
+    if (direction === "left") {
+      container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    } else {
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
   const projects = [
     {
       title: "WealthWay - Stock Trading Platform",
@@ -27,36 +41,55 @@ function Projects() {
       image: projectImage,
       link: "#",
     },
+    {
+      title: "Social Media Dashboard",
+      description: "Admin dashboard with analytics and real-time charts.",
+      tech: ["React", "Chart.js", "Node.js"],
+      image: projectImage,
+      link: "#",
+    },
+    {
+      title: "Portfolio Website",
+      description: "Modern animated developer portfolio with smooth UI.",
+      tech: ["React", "Framer Motion", "Tailwind"],
+      image: projectImage,
+      link: "#",
+    },
   ];
 
   return (
-    <section className="min-h-screen  px-10 py-20">
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+    <section className="min-h-screen px-10 py-20 bg-[#222222] relative overflow-hidden">
+      {/* Cards Row */}
+      <div
+        ref={scrollRef}
+        className="flex items-center pl-10 gap-10 overflow-x-auto overflow-y-hidden max-w-7xl mx-auto"
+        style={{
+          height: "611px",
+          scrollbarWidth: "none", // Firefox
+          msOverflowStyle: "none", // IE 10+
+        }}
+      >
         {projects.map((project, index) => (
           <motion.div
             key={index}
-            whileHover={{ scale: 1.02 }}
-            transition={{ duration: 0.4 }}
-            className="relative h-[70vh] rounded-3xl overflow-hidden 
-            border border-white/10
-            hover:border-[#007CED]/60
-            hover:shadow-[0_0_25px_rgba(0,124,237,0.25)]
-            transition-all duration-500 cursor-pointer"
+            whileHover={{ scale: 1.05 }}
+            className="relative min-w-[400px] h-[70vh] rounded-3xl overflow-hidden
+                bg-[#1a1a1a]
+                border border-white/10
+                backdrop-blur-xl
+                shadow-xl
+                hover:shadow-[0_0_40px_rgba(0,124,237,0.35)]
+                hover:border-[#007CED]/70
+                transition-all duration-500 cursor-pointer"
           >
-            {/* Background Image */}
-            <motion.img
+            <img
               src={project.image}
               alt={project.title}
               className="absolute inset-0 w-full h-full object-cover"
-              whileHover={{ scale: 1.08 }}
-              transition={{ duration: 0.6 }}
             />
 
-            {/* Soft Dark Overlay */}
-            <div className="absolute inset-0 bg-black/65"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
 
-            {/* Content */}
             <div className="relative z-10 h-full flex flex-col justify-end p-8 text-white">
               <h2 className="text-2xl font-bold mb-4 text-[#007CED]">
                 {project.title}
@@ -66,24 +99,20 @@ function Projects() {
                 {project.description}
               </p>
 
-              {/* Tech Stack */}
               <div className="flex flex-wrap gap-2 mb-6">
                 {project.tech.map((tech, i) => (
                   <span
                     key={i}
-                    className="text-xs bg-white/10 backdrop-blur-md 
-                    px-3 py-1 rounded-full border border-white/20"
+                    className="text-xs bg-white/10 px-3 py-1 rounded-full border border-white/20"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
 
-              {/* Button */}
               <a
                 href={project.link}
-                className="w-fit px-5 py-2 bg-[#007CED] 
-                hover:bg-blue-600 rounded-lg text-sm font-medium transition"
+                className="w-fit px-5 py-2 bg-[#007CED] hover:bg-blue-600 rounded-lg text-sm font-medium transition"
               >
                 View Project →
               </a>
@@ -91,6 +120,30 @@ function Projects() {
           </motion.div>
         ))}
       </div>
+
+      {/* Arrow Buttons */}
+      <div className="absolute bottom-20 right-16 flex gap-4">
+        <button
+          onClick={() => scroll("left")}
+          className="w-12 h-12 rounded-full bg-[#353535] hover:bg-blue-600 flex items-center justify-center text-white text-xl shadow-lg transition"
+        >
+          ←
+        </button>
+
+        <button
+          onClick={() => scroll("right")}
+          className="w-12 h-12 rounded-full bg-[#353535] hover:bg-blue-600 flex items-center justify-center text-white text-xl shadow-lg transition"
+        >
+          →
+        </button>
+      </div>
+
+      {/* Hide Scrollbar for Webkit */}
+      <style jsx>{`
+        div::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </section>
   );
 }

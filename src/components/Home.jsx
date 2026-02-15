@@ -8,7 +8,7 @@ import { SiNextdotjs, SiMongodb, SiExpress } from "react-icons/si";
 function Home() {
   return (
     <section
-      className="min-h-[90vh] max-w-6xl mx-auto px-6 py-16 
+      className="min-h-[90vh] max-w-6xl mx-auto px-2 py-16 
       grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
     >
       {/* Left Side - Image */}
@@ -45,7 +45,7 @@ function Home() {
 
         {/* Description */}
         <p className="text-[#A1A1AA] max-w-xl text-lg leading-relaxed">
-          Welcome to my digital space. I design and develop high-performance web
+          Welcome to my digital space.<br></br> I design and develop high-performance web
           applications that combine clean design, speed, and seamless
           cross-device experience.
         </p>

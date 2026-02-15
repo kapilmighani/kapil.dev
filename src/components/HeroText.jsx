@@ -15,7 +15,7 @@ const HoverLetter = ({ char, colors }) => {
     setTimeout(() => {
       e.target.style.color = defaultColor;
       e.target.classList.remove("shake-horizontal");
-    }, 600); // smoother
+    }, 2500); // smoother
   };
 
   return (
@@ -30,8 +30,9 @@ const HoverLetter = ({ char, colors }) => {
 
 const HeroText = () => {
   const lines = [
-    "Turning Ideas Into",
-    "High-Quality Web Applications",
+    "Welcome to my digital space.",
+    "I design and develop high-performance web applications that combine clean design,",
+    "speed, and seamless cross-device experience."
   ];
 
   const colors = [
@@ -40,11 +41,11 @@ const HeroText = () => {
     "#EC4899",
     "#38BDF8",
     "#FACC15",
-    "#8B5CF6",
+    "#8B5CF6",  
   ];
 
   return (
-    <h1 className="text-5xl md:text-6xl font-bold leading-tight">
+    <h1 className="text-5xl md:text-lg  leading-tight">
       {lines.map((line, lineIndex) => (
         <div key={lineIndex} className="flex flex-wrap">
           {line.split("").map((char, index) => (
