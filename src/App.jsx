@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Projects from "./components/Projects";
 import HangingLogo from "./components/HangingLogo";
+import EduAndExp from "./components/EduAndExp";
 
 const App = () => {
   return (
@@ -12,7 +13,8 @@ const App = () => {
       <Navbar />
       <Home />
       <Projects />
-
+      <EduAndExp />
+      
       <footer className="border-t border-[#333333] py-6 text-center text-sm text-[#A1A1AA] mt-40">
         © 2026 Kapil. Built with ❤️ using React & Tailwind.
       </footer>
