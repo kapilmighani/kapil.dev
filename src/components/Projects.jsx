@@ -73,7 +73,7 @@ function Projects() {
           <motion.div
             key={index}
             whileHover={{ scale: 1.05 }}
-            className="relative min-w-[400px] h-[70vh] rounded-3xl overflow-hidden
+            className="relative min-w-[380px] h-[67vh] rounded-3xl overflow-hidden
                 bg-[#1a1a1a]
                 border border-white/10
                 backdrop-blur-xl

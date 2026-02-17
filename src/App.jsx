@@ -2,23 +2,20 @@ import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import Projects from "./components/Projects";
 import HangingLogo from "./components/HangingLogo";
-import EduAndExp from "./components/EduAndExp";
+import More from "./components/More";
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-[#222222] text-[#EDEDED] relative overflow-hidden">
-
+    <div className="min-h-screen bg-[#222] text-[#EDEDED] relative overflow-hidden">
       <HangingLogo />
-
       <Navbar />
       <Home />
       <Projects />
-      <EduAndExp />
-      
+      <More />
+
       <footer className="border-t border-[#333333] py-6 text-center text-sm text-[#A1A1AA] mt-40">
         © 2026 Kapil. Built with ❤️ using React & Tailwind.
       </footer>
-
     </div>
   );
 };
