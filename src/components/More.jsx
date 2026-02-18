@@ -7,49 +7,49 @@ function AboutSection() {
   const about = {
     title: "About Me",
     short:
-      "Full Stack Developer focused on building scalable, high-performance web applications with clean UI and strong backend architecture.",
+      "Full Stack Developer focused on scalable, high-performance web apps.",
     full:
-      "I specialize in React, Next.js, Node.js and MongoDB. My focus is performance, maintainable architecture and smooth user experiences. I enjoy building modern, animated, and scalable applications with clean design systems.",
+      "I specialize in React, Next.js, Node.js and MongoDB. My focus is performance, maintainable architecture and smooth user experiences.",
   };
 
   const education = {
     title: "Education",
     short:
-      "Bachelor’s in Computer Science | Strong foundation in DSA, System Design and Web Technologies.",
+      "Bachelor’s in Computer Science | Strong foundation in DSA & System Design.",
     full:
-      "Bachelor’s Degree in Computer Science.\n\nKey Focus Areas:\n• Data Structures & Algorithms\n• Database Management Systems\n• Operating Systems\n• Web Development\n• System Design",
+      "Bachelor’s Degree in Computer Science.\n\n• Data Structures & Algorithms\n• DBMS\n• Operating Systems\n• Web Development",
   };
 
   const skills = {
     title: "Skills",
-    short:
-      "Frontend, Backend, Database, Tools & Deployment technologies.",
+    short: "Frontend, Backend, Database & Deployment technologies.",
     full:
-      "Frontend:\n• React.js\n• Next.js\n• Tailwind CSS\n• Framer Motion\n\nBackend:\n• Node.js\n• Express.js\n\nDatabase:\n• MongoDB\n\nOther:\n• REST APIs\n• Authentication\n• Git & GitHub\n• Deployment (Vercel / Render)",
+      "Frontend:\n• React.js\n• Next.js\n• Tailwind CSS\n• Framer Motion\n\nBackend:\n• Node.js\n• Express.js\n\nDatabase:\n• MongoDB\n\nOther:\n• Git & GitHub\n• REST APIs\n• Deployment",
   };
 
   return (
-    <section className="min-h-screen bg-[#0e0e0e] py-24 px-8">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+    <section className="min-h-screen bg-[#0e0e0e] py-24 px-8 text-white">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
 
         {/* LEFT SIDE */}
-        <div className="flex flex-col gap-10">
-
+        <div className="md:col-span-2 flex flex-col gap-10">
           <InfoCard data={about} onClick={() => setActiveCard(about)} />
-
           <InfoCard data={education} onClick={() => setActiveCard(education)} />
-
         </div>
 
-        {/* RIGHT SIDE (Equal Height Column) */}
-        <div className="flex">
-          <motion.div className="flex-1">
-            <InfoCard
-              data={skills}
-              onClick={() => setActiveCard(skills)}
-              tall
-            />
-          </motion.div>
+        {/* RIGHT SIDE */}
+        <div className="flex flex-col gap-10">
+
+          {/* SKILL CARD (HALF HEIGHT) */}
+          <InfoCard
+            data={skills}
+            onClick={() => setActiveCard(skills)}
+            half
+          />
+
+          {/* NEW FOLD CARD */}
+          <FoldCard />
+
         </div>
 
       </div>
@@ -65,18 +65,18 @@ function AboutSection() {
             onClick={() => setActiveCard(null)}
           >
             <motion.div
-              initial={{ scale: 0.85, borderRadius: 40 }}
-              animate={{ scale: 1, borderRadius: 24 }}
+              initial={{ scale: 0.85 }}
+              animate={{ scale: 1 }}
               exit={{ scale: 0.85, opacity: 0 }}
               transition={{ type: "spring", stiffness: 120 }}
-              className="bg-[#1a1a1a] max-w-2xl w-full p-10 text-white shadow-2xl"
+              className="bg-[#1a1a1a] max-w-2xl w-full p-10 rounded-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-2xl font-bold text-[#007CED] mb-6">
                 {activeCard.title}
               </h2>
 
-              <p className="text-gray-300 leading-relaxed whitespace-pre-line">
+              <p className="text-gray-300 whitespace-pre-line">
                 {activeCard.full}
               </p>
 
@@ -96,23 +96,38 @@ function AboutSection() {
 
 /* ---------- CARD COMPONENT ---------- */
 
-function InfoCard({ data, onClick, tall }) {
+function InfoCard({ data, onClick, tall, half }) {
   return (
     <motion.div
-      whileHover={{ scale: 1.02 }}
+      drag
+      dragElastic={0.2}
+      whileHover={{
+        scale: 1.05,
+        rotateZ: 2,
+        y: -5,
+      }}
+      whileTap={{
+        scale: 0.97,
+        rotateZ: -2,
+      }}
+      initial={{ opacity: 0, y: 40 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 120 }}
       onClick={onClick}
       className={`
         bg-[#151515] border border-white/10 rounded-2xl
-        p-8 cursor-pointer transition-all duration-500
+        p-8 cursor-grab active:cursor-grabbing
         shadow-md hover:shadow-[0_0_25px_rgba(0,124,237,0.25)]
-        ${tall ? "h-full min-h-[100%]" : ""}
+        transition-shadow duration-500
+        ${tall ? "min-h-[420px]" : ""}
+        ${half ? "min-h-[200px]" : ""}
       `}
     >
-      <h3 className="text-xl font-semibold text-white mb-4">
+      <h3 className="text-xl font-semibold mb-4">
         {data.title}
       </h3>
 
-      <p className="text-gray-400 leading-relaxed text-sm">
+      <p className="text-gray-400 text-sm">
         {data.short}
       </p>
 
@@ -122,5 +137,31 @@ function InfoCard({ data, onClick, tall }) {
     </motion.div>
   );
 }
+
+/* ---------- FOLD CARD ---------- */
+
+function FoldCard() {
+  return (
+    <motion.div
+      initial={{ rotate: 35 }}
+      whileHover={{ rotate: 0 }}
+      transition={{ type: "spring", stiffness: 120, damping: 12 }}
+      className="relative bg-[#151515] border border-white/10 rounded-2xl p-8 overflow-hidden cursor-pointer min-h-[200px]"
+    >
+      <h3 className="text-xl font-semibold mb-4 text-white">
+        Experience
+      </h3>
+
+      <p className="text-gray-400 text-sm">
+        Internship experience, real-world projects and collaborative development exposure.
+      </p>
+
+      <div className="mt-6 text-[#007CED] text-sm font-medium">
+        Hover to Straighten →
+      </div>
+    </motion.div>
+  );
+}
+
 
 export default AboutSection;

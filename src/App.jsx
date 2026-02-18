@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import Projects from "./components/Projects";
 import HangingLogo from "./components/HangingLogo";
 import More from "./components/More";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -12,10 +13,7 @@ const App = () => {
       <Home />
       <Projects />
       <More />
-
-      <footer className="border-t border-[#333333] py-6 text-center text-sm text-[#A1A1AA] mt-40">
-        © 2026 Kapil. Built with ❤️ using React & Tailwind.
-      </footer>
+      <Footer />
     </div>
   );
 };
