@@ -58,7 +58,7 @@ function Projects() {
   ];
 
   return (
-    <section className="min-h-screen px-10 py-20 bg-[#222222] relative overflow-hidden">
+    <section className="min-h-screen px-10 py-20 bg-[#0e0e0e] relative overflow-hidden">
       {/* Cards Row */}
       <div
         ref={scrollRef}
