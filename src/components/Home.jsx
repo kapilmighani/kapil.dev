@@ -8,6 +8,7 @@ import { SiNextdotjs, SiMongodb, SiExpress } from "react-icons/si";
 function Home() {
   return (
     <section
+      id="home"
       className="min-h-[90vh] max-w-6xl mx-auto px-2 py-16 
       grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
     >

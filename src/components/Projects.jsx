@@ -1,125 +1,179 @@
-import { motion } from "framer-motion";
-import { useRef } from "react";
-import projectImage from "../assets/IMG_20260210_103205~3.jpg";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
+import { projects } from "../data/ProjectData";
+import { ExternalLink, Github, MoreHorizontal, X } from "lucide-react";
 
 function Projects() {
   const scrollRef = useRef(null);
+  const videoRefs = useRef([]);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const scroll = (direction) => {
     const container = scrollRef.current;
     const scrollAmount = 420;
 
-    if (direction === "left") {
-      container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
-    } else {
-      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    if (!container) return;
+
+    container.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
+  const handleHoverStart = (index) => {
+    const video = videoRefs.current[index];
+    if (video) {
+      video.currentTime = 0;
+      video.play();
     }
   };
 
-  const projects = [
-    {
-      title: "WealthWay - Stock Trading Platform",
-      description:
-        "A full-stack MERN stock trading platform with authentication, portfolio tracking, watchlist, and real-time market features.",
-      tech: ["React", "Node.js", "MongoDB", "Express"],
-      image: projectImage,
-      link: "#",
-    },
-    {
-      title: "Airbnb Clone",
-      description:
-        "A property listing platform with authentication, add/delete listings, reviews, and category filtering.",
-      tech: ["React", "MongoDB", "Express", "Tailwind"],
-      image: projectImage,
-      link: "#",
-    },
-    {
-      title: "Organic Store Web App",
-      description:
-        "E-commerce web app for selling organic fruits and vegetables with cart and authentication system.",
-      tech: ["React", "Node.js", "MongoDB"],
-      image: projectImage,
-      link: "#",
-    },
-    {
-      title: "Social Media Dashboard",
-      description: "Admin dashboard with analytics and real-time charts.",
-      tech: ["React", "Chart.js", "Node.js"],
-      image: projectImage,
-      link: "#",
-    },
-    {
-      title: "Portfolio Website",
-      description: "Modern animated developer portfolio with smooth UI.",
-      tech: ["React", "Framer Motion", "Tailwind"],
-      image: projectImage,
-      link: "#",
-    },
-  ];
+  const handleHoverEnd = (index) => {
+    const video = videoRefs.current[index];
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  };
 
   return (
-    <section className="min-h-screen px-10 py-20 bg-[#0e0e0e] relative overflow-hidden">
+    <section
+      id="projects"
+      className="min-h-screen px-10 py-20 bg-[#0e0e0e] relative overflow-hidden"
+    >
       {/* Cards Row */}
       <div
         ref={scrollRef}
         className="flex items-center pl-10 gap-10 overflow-x-auto overflow-y-hidden max-w-7xl mx-auto"
         style={{
           height: "611px",
-          scrollbarWidth: "none", // Firefox
-          msOverflowStyle: "none", // IE 10+
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
         }}
       >
         {projects.map((project, index) => (
           <motion.div
             key={index}
             whileHover={{ scale: 1.05 }}
+            onHoverStart={() => handleHoverStart(index)}
+            onHoverEnd={() => handleHoverEnd(index)}
             className="relative min-w-[380px] h-[67vh] rounded-3xl overflow-hidden
-                bg-[#1a1a1a]
-                border border-white/10
-                backdrop-blur-xl
-                shadow-xl
-                hover:shadow-[0_0_40px_rgba(0,124,237,0.35)]
-                hover:border-[#007CED]/70
-                transition-all duration-500 cursor-pointer"
+              bg-[#1a1a1a]
+              border border-white/10
+              backdrop-blur-xl
+              shadow-xl
+              hover:shadow-[0_0_40px_rgba(0,124,237,0.35)]
+              hover:border-[#007CED]/70
+              transition-all duration-500 cursor-pointer"
           >
-            <img
-              src={project.image}
-              alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover"
+            {/* Video */}
+            <video
+              ref={(el) => (videoRefs.current[index] = el)}
+              src={project.video}
+              muted
+              playsInline
+              className="h-full w-full object-cover"
             />
 
+            {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
 
-            <div className="relative z-10 h-full flex flex-col justify-end p-8 text-white">
-              <h2 className="text-2xl font-bold mb-4 text-[#007CED]">
+            {/* Top Project Name */}
+            <div className="absolute top-5 left-5 z-10">
+              <h2 className="text-white text-xl font-semibold tracking-wide">
                 {project.title}
               </h2>
+            </div>
 
-              <p className="text-sm text-gray-300 mb-6 leading-relaxed">
-                {project.description}
-              </p>
+            {/* Bottom Icons */}
+            <div className="absolute bottom-5 left-5 right-5 flex justify-between items-center z-10">
+              <div className="flex gap-4">
+                {/* Live */}
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white/10 hover:bg-blue-600 p-2 rounded-full transition"
+                >
+                  <ExternalLink size={18} color="white" />
+                </a>
 
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tech.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="text-xs bg-white/10 px-3 py-1 rounded-full border border-white/20"
-                  >
-                    {tech}
-                  </span>
-                ))}
+                {/* GitHub */}
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-white/10 hover:bg-blue-600 p-2 rounded-full transition"
+                >
+                  <Github size={18} color="white" />
+                </a>
               </div>
 
-              <a
-                href={project.link}
-                className="w-fit px-5 py-2 bg-[#007CED] hover:bg-blue-600 rounded-lg text-sm font-medium transition"
+              {/* More */}
+              <button
+                onClick={() => setSelectedProject(project)}
+                className="bg-white/10 hover:bg-blue-600 p-2 rounded-full transition"
               >
-                View Project →
-              </a>
+                <MoreHorizontal size={18} color="white" />
+              </button>
             </div>
           </motion.div>
         ))}
       </div>
+
+      {/* Popup Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              className="bg-[#1a1a1a] text-white p-8 rounded-2xl w-[500px] max-w-[90%] relative"
+            >
+              <button
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-white"
+              >
+                <X size={22} />
+              </button>
+
+              <h2 className="text-2xl font-bold mb-4">
+                {selectedProject.title}
+              </h2>
+
+              <p className="text-gray-300 mb-4">
+                {selectedProject.description}
+              </p>
+
+              <div className="flex gap-4 mt-4">
+                <a
+                  href={selectedProject.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition"
+                >
+                  Live Project
+                </a>
+
+                <a
+                  href={selectedProject.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-800 transition"
+                >
+                  GitHub
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Arrow Buttons */}
       <div className="absolute bottom-20 right-16 flex gap-4">
@@ -138,12 +192,14 @@ function Projects() {
         </button>
       </div>
 
-      {/* Hide Scrollbar for Webkit */}
-      <style jsx>{`
-        div::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
+      {/* Hide Scrollbar */}
+      <style>
+        {`
+          div::-webkit-scrollbar {
+            display: none;
+          }
+        `}
+      </style>
     </section>
   );
 }

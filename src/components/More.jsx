@@ -34,7 +34,7 @@ function AboutSection() {
   };
 
   return (
-    <section className="min-h-screen bg-[#0e0e0e] py-24 px-8 text-white">
+    <section id="more" className="min-h-screen bg-[#0e0e0e] py-24 px-8 text-white">
       <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
 
         {/* LEFT */}
