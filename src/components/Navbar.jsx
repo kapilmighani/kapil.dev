@@ -1,5 +1,6 @@
 import { Download, Menu, X, Phone, Mail, Copy } from "lucide-react";
 import { useState } from "react";
+import resume from "../assets/KAPIL_MIGHANI.PDF";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,7 +38,7 @@ function Navbar() {
         </a>
 
         <a
-          href="/resume.pdf"
+          href={resume}
           download
           className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#007CED] hover:bg-[#0066C9] transition"
         >
