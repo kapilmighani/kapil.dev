@@ -1,6 +1,6 @@
 import { Download, Menu, X, Phone, Mail, Copy } from "lucide-react";
 import { useState } from "react";
-import resume from "../assets/KAPIL_MIGHANI.PDF";
+import resume from "../assets/KAPIL_MIGHANI.pdf";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
