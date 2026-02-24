@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { projects } from "../data/ProjectData";
 import { ExternalLink, Github, MoreHorizontal, X } from "lucide-react";
+import ProjectModal from "./ProjectModal.jsx";
 
 function Projects() {
   const scrollRef = useRef(null);
@@ -122,58 +123,10 @@ function Projects() {
       </div>
 
       {/* Popup Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-[#1a1a1a] text-white p-8 rounded-2xl w-[500px] max-w-[90%] relative"
-            >
-              <button
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-white"
-              >
-                <X size={22} />
-              </button>
-
-              <h2 className="text-2xl font-bold mb-4">
-                {selectedProject.title}
-              </h2>
-
-              <p className="text-gray-300 mb-4">
-                {selectedProject.description}
-              </p>
-
-              <div className="flex gap-4 mt-4">
-                <a
-                  href={selectedProject.live}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition"
-                >
-                  Live Project
-                </a>
-
-                <a
-                  href={selectedProject.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-800 transition"
-                >
-                  GitHub
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+<ProjectModal
+  selectedProject={selectedProject}
+  setSelectedProject={setSelectedProject}
+/>
 
       {/* Arrow Buttons */}
       <div className="absolute bottom-20 right-16 flex gap-4">
