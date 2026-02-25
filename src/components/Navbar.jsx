@@ -6,7 +6,7 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
 
-  const phoneNumber = "9352775013";
+  const phoneNumber = "9079086110";
   const email = "Kapilmighani@gmail.com";
 
   const copyToClipboard = (text) => {
