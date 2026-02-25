@@ -21,7 +21,11 @@ function AboutSection() {
         {/* RIGHT */}
         <div className="flex flex-col gap-10">
           <Card data={moreData.skills} onClick={() => setActiveCard(moreData.skills)} />
-          <Card data={moreData.experience} onClick={() => setActiveCard(moreData.experience)} tilted />
+          <Card
+            data={moreData.experience}
+            onClick={() => setActiveCard(moreData.experience)}
+            tilted
+          />
         </div>
       </div>
 
@@ -32,7 +36,7 @@ function AboutSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 px-4"
             onClick={() => setActiveCard(null)}
           >
             <motion.div
@@ -41,22 +45,42 @@ function AboutSection() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
               transition={{ type: "spring", stiffness: 120 }}
-              className="bg-[#1a1a1a] max-w-2xl w-full p-10 rounded-2xl shadow-xl"
+              className="bg-gradient-to-br from-[#1a1a1a] to-[#111]
+              max-w-2xl w-full 
+              p-10 rounded-2xl 
+              shadow-2xl border border-white/10 
+              backdrop-blur-xl"
               onClick={(e) => e.stopPropagation()}
             >
               <h2 className="text-2xl font-bold text-[#007CED] mb-6">
                 {activeCard.title}
               </h2>
 
-              {/* Universal Content Render */}
+              {/* Styled Content */}
               {activeCard.full && (
-                <p className="text-gray-300 whitespace-pre-line">
-                  {activeCard.full}
-                </p>
+                <div className="text-gray-300 space-y-4 leading-relaxed max-h-[60vh] overflow-y-auto pr-2 custom-scroll">
+
+                  {Array.isArray(activeCard.full) ? (
+                    <ul className="list-disc pl-5 space-y-2">
+                      {activeCard.full.map((item, index) => (
+                        <li key={index} className="hover:text-white transition">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p className="whitespace-pre-line">
+                      {activeCard.full}
+                    </p>
+                  )}
+
+                </div>
               )}
 
               <button
-                className="mt-8 px-6 py-2 bg-[#007CED] rounded-lg hover:opacity-90 transition"
+                className="mt-8 px-6 py-2 bg-[#007CED] rounded-lg 
+                hover:scale-105 active:scale-95 
+                transition-all duration-300 shadow-lg"
                 onClick={() => setActiveCard(null)}
               >
                 Close
